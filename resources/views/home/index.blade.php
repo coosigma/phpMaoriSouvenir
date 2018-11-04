@@ -11,7 +11,7 @@
 @section('title', 'Home Page')
 @section('content')
     <div>
-    <img id="icon" src="{{asset('public/img/memoraial_souvenir.gif')}}" />
+    <img id="icon" src="{{asset('img/memorial_souvenir.gif')}}" />
 
         <div class="col-md-12">
             <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
@@ -23,7 +23,7 @@
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="active item">
-                        <img src="public/img/Boat.jpg" alt="Woodcarving boat" class="img-responsive" />
+                        <img src="img/Boat.jpg" alt="Woodcarving boat" class="img-responsive" />
                         <div class="carousel-caption" role="option">
                             <p style="color:black;position:relative;left:350px;top:20px">
                                 Woodcarving boat<br />
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="item">
-                        <img src="public/img/Dolls.jpeg" alt="Doll Set" class="img-responsive" />
+                        <img src="img/Dolls.jpeg" alt="Doll Set" class="img-responsive" />
                         <div class="carousel-caption" role="option">
                             <p style="color:black;position:relative;left:300px">
                                 Doll Set<br />
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="item">
-                        <img src="public/img/Jade.jpg" alt="Jade Necklace" class="img-responsive" />
+                        <img src="img/Jade.jpg" alt="Jade Necklace" class="img-responsive" />
                         <div class="carousel-caption" role="option">
                             <p style="color:black;position:relative;left:200px;top: -30px">
                                 Jade Necklace<br />
@@ -51,7 +51,7 @@
                         </div>
                     </div>
                     <div class="item">
-                        <img src="public/img/PostCard.jpg" alt="Postcard" class="img-responsive" />
+                        <img src="img/PostCard.jpg" alt="Postcard" class="img-responsive" />
                         <div class="carousel-caption" role="option">
                             <p style="color:black;position:relative;left:130px">
                                 Postcard
@@ -75,19 +75,19 @@
     <br />
     <div class="row-fluid">
         <div class="col-md-3">
-            <img src="public/img/Jade1.jpg" /><br />
+            <img src="img/Jade1.jpg" /><br />
             Jade 1<br />$100<br />{{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="4">view</a>--}}
         </div>
         <div class="col-md-3">
-            <img src="public/img/Jade2.jpg" /><br />
+            <img src="img/Jade2.jpg" /><br />
             Jade 2<br />$200<br />{{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="5">view</a>--}}
         </div>
         <div class="col-md-3">
-            <img src="public/img/Jade3.jpg" /><br />
+            <img src="img/Jade3.jpg" /><br />
             Jade 3<br />$300<br />{{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="6">view</a>--}}
         </div>
         <div class="col-md-3">
-            <img src="public/img/Jade4.jpg" /><br />
+            <img src="img/Jade4.jpg" /><br />
             Jade 4<br />$400<br />{{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="7">view</a>--}}
         </div>
     </div>

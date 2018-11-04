@@ -15,10 +15,10 @@
     <title>@yield('title')- QualitySouvenir</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    {{--<link rel="stylesheet" href="{{url('public/lib/bootstrap/dist/css/bootstrap.css')}}" type="text/css" />--}}
-    <link rel="stylesheet" href="{{url('public/css/site.css')}}" type="text/css"/>
-    <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="public/img/favicon.ico" type="image/x-icon" />
+    {{--<link rel="stylesheet" href="{{url('lib/bootstrap/dist/css/bootstrap.css')}}" type="text/css" />--}}
+    <link rel="stylesheet" href="{{url('css/site.css')}}" type="text/css"/>
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="bookmark" href="img/favicon.ico" type="image/x-icon" />
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -31,7 +31,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a href='{{ route('home@index') }}' class="navbar-brand">
-                <img id="icon" src="{{asset('public/img/QualitySouvenir.png')}}" />
+                <img id="icon" src="{{asset('img/QualitySouvenir.png')}}" />
             </a>
         </div>
         <div class="navbar-collapse collapse">
@@ -54,8 +54,9 @@
                     {
                     <li><a  href='{{ route('memberSouvenir@index') }}'><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Souvenirs</a></li>
                     }--}}
+                    <li><a  href='{{ route('souvenir@index') }}'><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Souvenirs</a></li>
                     <li><a  href='{{ route('home@about') }}'><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
-                    <li><a  href='{{ route('home@contact') }}'><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> Contact</a></li>
+                  <li><a  href='{{ route('home@contact') }}'><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> Contact</a></li>
 
             </ul>
             {{--@await Html.PartialAsync("_LoginPartial")--}}
@@ -100,7 +101,7 @@
                             <li><span class="glyphicon glyphicon glyphicon-globe"></span> 183 Bld, 139 Carrington Rd, Mt Albert, Auckland, NZ</li>
                             <li><span class="glyphicon glyphicon-phone-alt"></span> 0211234567</li>
                             <li><span class="glyphicon glyphicon-envelope"></span> support@maorisouvenir.com</li>
-                            <li>&copy; All rights reserved by Bing Liang <img id="icon" src="{{asset('public/img/HomeIcon-Black.png')}}" /></li>
+                            <li>&copy; All rights reserved by Bing Liang <img id="icon" src="{{asset('img/HomeIcon-Black.png')}}" /></li>
                         </ul>
                     </div>
                 </div>
@@ -108,10 +109,10 @@
         </footer>
     </div>
 </div>
-<script src="{{url('public/lib/jquery/dist/jquery.js')}}"></script>
+<script src="{{url('lib/jquery/dist/jquery.js')}}"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-{{--<script src="{{url('public/lib/bootstrap/dist/js/bootstrap.js')}}"></script>--}}
-<script src="{{url('public/js/site.js')}}"></script>
+{{--<script src="{{url('lib/bootstrap/dist/js/bootstrap.js')}}"></script>--}}
+<script src="{{url('js/site.js')}}"></script>
 </body>
 </html>
 
