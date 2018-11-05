@@ -8,7 +8,7 @@
 ?>
 
 @extends('Shared._layout')
-@section('title', 'Home Page')
+@section('title', 'Souvenirs')
 @section('content')
     <div>
     <img id="icon" src="{{asset('img/memorial_souvenir.gif')}}" />

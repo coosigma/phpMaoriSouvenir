@@ -22,3 +22,9 @@ Route::get('about', 'HomeController@about')->name('home@about');
 Route::get('contact', 'HomeController@contact')->name('home@contact');
 
 Route::get('souvenir', 'SouvenirController@index')->name('souvenir@index');
+
+Route::get('souvenir/create', 'SouvenirController@create')->name('souvenir@create');
+
+Route::resource('category', 'CategoryController');
+
+Route::any('category/{id}/delete', 'CategoryController@destroy');

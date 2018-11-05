@@ -55,6 +55,7 @@
                     <li><a  href='{{ route('memberSouvenir@index') }}'><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Souvenirs</a></li>
                     }--}}
                     <li><a  href='{{ route('souvenir@index') }}'><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Souvenirs</a></li>
+                    <li><a  href='category'><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Categories</a></li>
                     <li><a  href='{{ route('home@about') }}'><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
                   <li><a  href='{{ route('home@contact') }}'><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> Contact</a></li>
 
