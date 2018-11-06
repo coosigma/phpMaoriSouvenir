@@ -28,3 +28,7 @@ Route::get('souvenir/create', 'SouvenirController@create')->name('souvenir@creat
 Route::resource('category', 'CategoryController');
 
 Route::any('category/{id}/delete', 'CategoryController@destroy');
+
+Route::resource('supplier', 'SupplierController');
+
+Route::any('supplier/{id}/delete', 'SupplierController@destroy');

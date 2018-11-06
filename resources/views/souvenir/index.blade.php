@@ -75,8 +75,8 @@
                                 @php ($sort_name = 'name')
                             @endif
                             @php ($paras = Request::except('sort_mode'))
-                                @php ($paras['sort_mode'] = $sort_name)
-                                <a href='{{ route('souvenir@index', $paras) }}'>Name</a>
+                            @php ($paras['sort_mode'] = $sort_name)
+                            <a href='{{ route('souvenir@index', $paras) }}'>Name</a>
                         </th>
                         <th>
                             @if (app('request')->input('sort_mode') == 'price')
@@ -84,9 +84,9 @@
                             @else
                                 @php ($sort_price = 'price')
                             @endif
-                                @php ($paras = Request::except('sort_mode'))
-                                @php ($paras['sort_mode'] = $sort_price)
-                                <a href='{{ route('souvenir@index', $paras) }}'>Price</a>
+                            @php ($paras = Request::except('sort_mode'))
+                            @php ($paras['sort_mode'] = $sort_price)
+                            <a href='{{ route('souvenir@index', $paras) }}'>Price</a>
                         </th>
                         <th>
                             Description
@@ -170,32 +170,31 @@
                         }
                     </tbody>--}}
                 </table>
-{{--                @{
-                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-                }
+                {{--                @{
+                                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                                }
 
-                <a asp-action="Index"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                asp-route-page="@(Model.PageIndex - 1)"
-                asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                asp-route-lower_price="@ViewData["lowerPrice"]"
-                asp-route-upper_price="@ViewData["upperPrice"]"
-                class="btn btn-default @prevDisabled">
-                Previous
-                </a>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                asp-route-page="@(Model.PageIndex + 1)"
-                asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                asp-route-lower_price="@ViewData["lowerPrice"]"
-                asp-route-upper_price="@ViewData["upperPrice"]"
-                class="btn btn-default @nextDisabled">
-                Next
-                </a>--}}
+                                <a asp-action="Index"
+                                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                                asp-route-page="@(Model.PageIndex - 1)"
+                                asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                asp-route-lower_price="@ViewData["lowerPrice"]"
+                                asp-route-upper_price="@ViewData["upperPrice"]"
+                                class="btn btn-default @prevDisabled">
+                                Previous
+                                </a>
+                                <a asp-action="Index"
+                                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                                asp-route-page="@(Model.PageIndex + 1)"
+                                asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                                asp-route-lower_price="@ViewData["lowerPrice"]"
+                                asp-route-upper_price="@ViewData["upperPrice"]"
+                                class="btn btn-default @nextDisabled">
+                                Next
+                                </a>--}}
             </div>
         </div>
     </div>
 
 @endsection
-

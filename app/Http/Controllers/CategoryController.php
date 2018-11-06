@@ -18,10 +18,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
-        // get all the nerds
+        // get all the categories
         $categories = Category::all();
-        // load the view and pass the nerds
+        // load the view and pass the categories
         return view('category.index', compact('categories'));
     }
 
@@ -44,7 +43,6 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
@@ -79,11 +77,10 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
-        // get the nerd
+        // get the category
         $category = Category::find($id);
 
-        // show the view and pass the nerd to it
+        // show the view and pass the category to it
         return view('category.show')->with('category', $category);
     }
 
@@ -95,8 +92,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
-        // get the nerd
+        // get the category
         $category = Category::find($id);
 
         return view('category.edit')->with('category', $category);

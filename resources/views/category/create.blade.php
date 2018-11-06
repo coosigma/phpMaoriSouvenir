@@ -18,7 +18,7 @@
                 <a class="navbar-brand" href="{{ URL::to('category') }}">Categories</a>
             </div>
             <ul class="nav navbar-nav">
-                <li><a href="{{ URL::to('category') }}">VView All Categories</a></li>
+                <li><a href="{{ URL::to('category') }}">View All Categories</a></li>
                 <li><a href="{{ URL::to('category/create') }}">Create a Category</a>
             </ul>
         </nav>
