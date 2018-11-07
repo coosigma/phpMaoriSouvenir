@@ -1,6 +1,6 @@
-@extends('layouts.app')
-{{--@extends('Shared._layout')--}}
-{{--@section('title', 'Login')--}}
+{{--@extends('layouts.app')--}}
+@extends('Shared._layout')
+@section('title', 'Login')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
