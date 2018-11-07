@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('Address', 100);
             $table->string('FirstName', 50);
             $table->string('LastName', 50);
-            $table->string('PhoneNumber', 100);
+            $table->string('PhoneNumber', 50);
             $table->boolean('Enabled')->default(false);
         });
     }

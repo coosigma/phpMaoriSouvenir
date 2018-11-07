@@ -59,9 +59,19 @@
                     <li><a  href='supplier'><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Suppliers</a></li>
                     <li><a  href='{{ route('home@about') }}'><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
                   <li><a  href='{{ route('home@contact') }}'><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> Contact</a></li>
-
             </ul>
-            {{--@await Html.PartialAsync("_LoginPartial")--}}
+
+            <ul class="nav navbar-nav navbar-right">
+                @guest()
+                        <li><a href="register"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Register</a></li>
+                        <li><a href="login"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Log in</a></li>
+                @endguest
+                @auth()
+                        <li><a href="account"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> {{Auth::user()->email}}</a></li>
+                        <li><a href="logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log out</a></li>
+                @endauth
+            </ul>
+
         </div>
     </div>
 </nav>
