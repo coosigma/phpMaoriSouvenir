@@ -12,13 +12,15 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')- QualitySouvenir</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     {{--<link rel="stylesheet" href="{{url('lib/bootstrap/dist/css/bootstrap.css')}}" type="text/css" />--}}
     <link rel="stylesheet" href="{{url('css/site.css')}}" type="text/css"/>
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
-    <link rel="bookmark" href="img/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="{{url('css/style.css')}}" type="text/css"/>
+    <link rel="shortcut icon" href="{{url('img/favicon.ico')}}" type="image/x-icon" />
+    <link rel="bookmark" href="{{url('img/favicon.ico')}}" type="image/x-icon" />
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -80,6 +82,11 @@
 <br />
 <div class="container body-content">
     @yield('content')
+
+    <div id="cd-cart-trigger"><a class="cd-img-replace" href="/#0">Cart</a></div>
+    <div id="cd-shadow-layer"></div>
+    @include('shared.ShoppingCart')
+
     <hr />
     <div class="container">
         <footer class="bg-light" style="margin:20px -15px -15px -15px;">
@@ -125,6 +132,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 {{--<script src="{{url('lib/bootstrap/dist/js/bootstrap.js')}}"></script>--}}
 <script src="{{url('js/site.js')}}"></script>
+<script src="{{url('js/main.js')}}"></script>
 </body>
 </html>
-

@@ -40,3 +40,11 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('verified'
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::post('cart/addItem', 'CartController@addItem');
+ // Route::get('/cart/addItem/{id}', 'CartController@addItem');
+Route::post('/cart/addItem', 'CartController@addItem');
+
+Route::any('/cart/getCart', 'CartController@getCart');
+
+Route::any('/cart/reduceItem/{id}', 'CartController@reduceItem');

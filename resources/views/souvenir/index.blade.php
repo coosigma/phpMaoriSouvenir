@@ -42,7 +42,7 @@
             </div>
             <div class="col-md-9">
                 <p>
-                    <a asp-action="Create">Create New</a>
+                    <a href="Create">Create New</a>
                 </p>
                 @php ($paras = Request::except('search_str'))
                 <form action="{{ action('SouvenirController@index', $paras) }}" method="get">
@@ -126,73 +126,19 @@
                                 {{$souvenir->SupplierID}}
                             </td>
                             <td>
-                                <a asp-action="Edit" asp-route-id="@item.SouvenirID">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.SouvenirID">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.SouvenirID">Delete</a>
+                                <a href="Edit" >Edit</a> |
+                                <a href="Details" >Details</a> |
+                                <a href="Delete" >Delete</a>|
+                                <a href="#" onclick='addItem({{$souvenir->id}})'>
+                                <!-- <a href='/cart/addItem/{{$souvenir->id}}' > -->
+                                    Add To <span class="glyphicon glyphicon-shopping-cart"></span>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                     {{ $souvenirs->appends(Request::except('page'))->links() }}
-                    {{--<tbody>
-                    @foreach (var item in Model)
-                        {
-                        var imgUrl = @Href("~" + item.PhotoPath);
-                        var errImg = @Href("~/images/Error.svg");
-                        <tr>
-                            <td>
-                                <img style="width: 250px; height: auto;" src="@imgUrl" alt="Souvenir Image" onerror="this.onerror = null; this.src = '@errImg'">
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SouvenirID)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.SouvenirName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Price)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Description)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Supplier.FullName)
-                            </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.SouvenirID">Edit</a> |
-                                <a asp-action="Details" asp-route-id="@item.SouvenirID">Details</a> |
-                                <a asp-action="Delete" asp-route-id="@item.SouvenirID">Delete</a>
-                            </td>
-                        </tr>
-                        }
-                    </tbody>--}}
-                </table>
-                {{--                @{
-                                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-                                }
-
-                                <a asp-action="Index"
-                                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                                asp-route-page="@(Model.PageIndex - 1)"
-                                asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                                asp-route-lower_price="@ViewData["lowerPrice"]"
-                                asp-route-upper_price="@ViewData["upperPrice"]"
-                                class="btn btn-default @prevDisabled">
-                                Previous
-                                </a>
-                                <a asp-action="Index"
-                                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                                asp-route-page="@(Model.PageIndex + 1)"
-                                asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                                asp-route-lower_price="@ViewData["lowerPrice"]"
-                                asp-route-upper_price="@ViewData["upperPrice"]"
-                                class="btn btn-default @nextDisabled">
-                                Next
-                                </a>--}}
+              </table>
             </div>
         </div>
     </div>
