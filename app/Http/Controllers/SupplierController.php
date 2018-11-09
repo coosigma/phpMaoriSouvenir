@@ -102,7 +102,6 @@ class SupplierController extends Controller
     {
         // get the supplier
         $supplier = Supplier::find($id);
-
         return view('supplier.edit')->with('supplier', $supplier);
     }
 

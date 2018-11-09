@@ -12,6 +12,17 @@
 @section('content')
     <h2>Index</h2>
 
+    @if (Session::has('message'))
+        <div class="alert alert-info">{{ Session::get('message') }}</div>
+    @endif
+    @if ($errors->any())
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3" style="position:relative;top:0px">
@@ -131,9 +142,9 @@
                                 {{$souvenir->supplier->FirstName." ".$souvenir->supplier->LastName}}
                             </td>
                             <td>
-                                <a href="Edit" >Edit</a> |
+                                <a href="{{route('souvenir@edit',[$souvenir->id])}}" >Edit</a> |
                                 <a href="{{route('souvenir@detail',[$souvenir->id])}}" >Details</a> |
-                                <a href="Delete" >Delete</a>|
+                                <a href="{{route('souvenir@delete',[$souvenir->id])}}" >Delete</a>|
                                 <a href="#" onclick='addItem({{$souvenir->id}})'>
                                     Add To <span class="glyphicon glyphicon-shopping-cart"></span>
                                 </a>

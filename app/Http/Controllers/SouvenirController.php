@@ -104,7 +104,7 @@ class SouvenirController extends Controller
             $souvenir->CategoryID = Input::get('category');
             $souvenir->SupplierID = Input::get('supplier');
             $file = Input::file('photo');
-            if ($file->isValid()) {
+            if (isset($file) && $file->isValid()) {
                 // 获取文件相关信息
                 $originalName = $file->getClientOriginalName(); // 文件原名
                 $ext = $file->getClientOriginalExtension();     // 扩展名
@@ -115,6 +115,8 @@ class SouvenirController extends Controller
                 // 使用我们新建的uploads本地存储空间（目录）
                 $file->move('img', $filename);
                 $souvenir->PhotoPath = '/img/'.$filename;
+            } else {
+                $souvenir->PhotoPath = '';
             }
             $souvenir->save();
 
@@ -147,7 +149,11 @@ class SouvenirController extends Controller
      */
     public function edit($id)
     {
-        //
+      // get the supplier
+        $souvenir = souvenir::find($id);
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        return view('souvenir.edit', compact('souvenir', 'categories', 'suppliers'));
     }
 
     /**
@@ -159,7 +165,49 @@ class SouvenirController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // validate
+        // read more on validation at http://laravel.com/docs/validation
+        $rules = array(
+            'name'       => 'required|max:20',
+            'description'      => 'required|max:50',
+            'price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:20',
+            'supplier' => 'required',
+            'category' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        // process the errors
+        if ($validator->fails()) {
+            return Redirect::to('souvenir/create')
+                ->withErrors($validator)
+                ->withInput(Input::all());
+        } else {
+            // update
+            $souvenir = Souvenir::find($id);
+            $souvenir->Name = Input::get('name');
+            $souvenir->Description = Input::get('description');
+            $souvenir->Price = Input::get('price');
+            $souvenir->CategoryID = Input::get('category');
+            $souvenir->SupplierID = Input::get('supplier');
+            $file = Input::file('photo');
+            if (isset($file) && $file->isValid()) {
+                // 获取文件相关信息
+                $originalName = $file->getClientOriginalName(); // 文件原名
+                $ext = $file->getClientOriginalExtension();     // 扩展名
+                $realPath = $file->getRealPath();   //临时文件的绝对路径
+                $type = $file->getClientMimeType();     // image/jpeg
+                // 上传文件
+                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+                // 使用我们新建的uploads本地存储空间（目录）
+                $file->move('img', $filename);
+                $souvenir->PhotoPath = '/img/'.$filename;
+            }
+            $souvenir->save();
+
+            // redirect
+            Session::flash('message', 'Successfully updated souvenir!');
+            return Redirect::to('souvenir');
+        }
     }
 
     /**
@@ -170,6 +218,19 @@ class SouvenirController extends Controller
      */
     public function destroy($id)
     {
-        //
+      // delete
+        $souvenir = Souvenir::find($id);
+        try {
+            $souvenir->delete();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $message="";
+            if ($ex->getCode() == 23000)
+                $message = "The Souvenir being deleted belongs to some orders. Delete those orders before trying again.";
+            return Redirect::to('souvenir')
+                ->withErrors($message);
+        }
+        // redirect
+        Session::flash('message', 'Successfully deleted the souvenir!');
+        return Redirect::to('souvenir');
     }
 }

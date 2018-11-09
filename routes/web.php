@@ -25,6 +25,12 @@ Route::get('souvenir', 'SouvenirController@index')->name('souvenir@index');
 
 Route::get('souvenir/{id}/detail', 'SouvenirController@show')->name('souvenir@detail');
 
+Route::get('souvenir/{id}/edit', 'SouvenirController@edit')->name('souvenir@edit');
+
+Route::post('souvenir/{id}/update', 'SouvenirController@update')->name('souvenir@update');
+
+Route::get('souvenir/{id}/delete', 'SouvenirController@destroy')->name('souvenir@delete');
+
 Route::get('souvenir/create', 'SouvenirController@create')->name('souvenir@create');
 
 Route::post('souvenir/store', 'SouvenirController@store')->name('souvenir@store');
