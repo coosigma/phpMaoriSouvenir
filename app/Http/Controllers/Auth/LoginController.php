@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
+use Session;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -36,7 +37,17 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+      $this->middleware('guest')->except('logout');
+    }
+
+    protected function redirectTo()
+    {
+      $rd = $this->redirectTo;
+      if (\Session::has('redirect_url')) {
+        $rd = \Session::get('redirect_url');
+        \Session::forget('redirect_url');
+      }
+      return $rd;
     }
 
     public function logout(Request $request) {

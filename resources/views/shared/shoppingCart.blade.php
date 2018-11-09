@@ -56,12 +56,12 @@
     <div class="row" id="cart_buttons">
         <div class="col-sm-2"></div>
         <div class="col-sm-5">
-            <a data-ajax="true" data-ajax-complete="onUpdateCartComplete" href="~/ShoppingCart/EmptyCart" class="empty-cart-btn">
+            <a onclick="emptyCart()" class="empty-cart-btn">
                 Empty Cart <span class="glyphicon glyphicon-remove"></span>
             </a>
         </div>
         <div class="col-sm-5">
-            <a class="checkout-btn" asp-action="Create" asp-controller="Orders">
+            <a href="{{action('CartController@checkOut')}}" class="checkout-btn">
                 Checkout<span class="glyphicon glyphicon-step-forward"></span>
             </a>
         </div>

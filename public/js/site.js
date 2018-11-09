@@ -31,11 +31,20 @@ function reduceOne(id) {
     type: 'get',
     url: '/cart/reduceItem/'+id,
     success: function (res){
-			onUpdateCartComplete(res);
+			refreshCart(res);
 	  },
     });
 }
-function onUpdateCartComplete(res) {
+function emptyCart() {
+		$.ajax({
+    type: 'get',
+    url: '/cart/emptyCart',
+    success: function (res){
+			refreshCart(res);
+	  },
+    });
+}
+function refreshCart(res) {
 				var new_string = "";
 				for (i = 0, len = res.data.length; i < len; i++) {
 					var item = res.data[i];
@@ -60,7 +69,10 @@ function onUpdateCartComplete(res) {
     $("#sub_total").html("$" + res.sub);
     $("#gst_total").html("$" + res.gst);
     $("#grand_total").html("$" + res.total);
-    if (res.data.length == 0) {
+    var url = window.location.href;
+    if (res.data.length == 0 || url.indexOf("cart/checkOut") != -1) {
         $("#cart_buttons").hide();
+    } else {
+        $("#cart_buttons").show();
     }
 }

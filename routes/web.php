@@ -41,10 +41,15 @@ Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::post('cart/addItem', 'CartController@addItem');
- // Route::get('/cart/addItem/{id}', 'CartController@addItem');
+// Ajax
 Route::post('/cart/addItem', 'CartController@addItem');
 
-Route::any('/cart/getCart', 'CartController@getCart');
+Route::get('/cart/getCart', 'CartController@getCart');
 
-Route::any('/cart/reduceItem/{id}', 'CartController@reduceItem');
+Route::get('/cart/reduceItem/{id}', 'CartController@reduceItem');
+
+Route::get('/cart/emptyCart', 'CartController@emptyCart');
+
+Route::get('/cart/checkOut', 'CartController@checkOut');
+
+Route::resource('order', 'OrderController');

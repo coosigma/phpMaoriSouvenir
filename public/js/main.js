@@ -29,7 +29,7 @@ jQuery(document).ready(function($){
     type: 'get',
     url: '/cart/getCart',
     success: function (res){
-			onUpdateCartComplete(res);
+			refreshCart(res);
 	  },
     });
 	}

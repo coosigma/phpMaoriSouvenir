@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Souvenir;
 use Illuminate\Support\Facades\Input;
-use Redirect, Auth, Log;
+use Illuminate\Support\Facades\Auth;
+use Session;
+use Redirect, Log;
 
 class CartController extends Controller
 {
@@ -32,6 +34,16 @@ class CartController extends Controller
         return response()->json($response);
     }
 
+    private function getItems() {
+        $userId = request()->cookie('laravel_session');
+        $items = [];
+        \Cart::session($userId)->getContent()->sortBy('id')->each(function($item) use (&$items)
+        {
+            $items[] = $item;
+        });
+        return $items;
+    }
+
     public function getCart(Request $request) {
 
         $userId = request()->cookie('laravel_session');
@@ -44,8 +56,8 @@ class CartController extends Controller
             'success' => true,
             'data' => $items,
             'total' => number_format($total,2),
-            'gst' => $gst,
-            'sub' => $sub,
+            'gst' => number_format($gst,2),
+            'sub' => number_format($sub,2),
             'message' => 'cart get items success'
         ),200,[]);
     }
@@ -69,14 +81,23 @@ class CartController extends Controller
         return $this->getCart($request);
     }
 
-    private function getItems() {
+    public function emptyCart(Request $request) {
         $userId = request()->cookie('laravel_session');
-        $items = [];
-        \Cart::session($userId)->getContent()->sortBy('id')->each(function($item) use (&$items)
-        {
-            $items[] = $item;
-        });
-        return $items;
+        if(!\Cart::session($userId)->isEmpty()) {
+          \Cart::session($userId)->clear();
+        }
+        return $this->getCart($request);
+    }
+
+    public function checkOut(Request $request) {
+      $user = $request->user();
+      if ($user != null) {
+        return view('order.placeOrder');
+      }
+      else {
+        \Session::put('redirect_url', \Request::getRequestUri());
+        return redirect(url('login'));
+      }
     }
 
 }

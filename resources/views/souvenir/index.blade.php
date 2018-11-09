@@ -8,7 +8,7 @@
 ?>
 
 @extends('Shared._layout')
-@section('title', 'Home Page')
+@section('title', 'Souvenir')
 @section('content')
     <h2>Index</h2>
 

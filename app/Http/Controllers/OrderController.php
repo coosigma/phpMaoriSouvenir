@@ -34,7 +34,38 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      // // validate
+      //   // read more on validation at http://laravel.com/docs/validation
+      //   $rules = array(
+      //       'first_name'       => 'required|max:50',
+      //       'last_name'       => 'required|max:50',
+      //       'description'      => 'required|max:50',
+      //       'phone_number'      => 'required|max:50',
+      //       'email'      => 'required|max:50',
+      //       'address'      => 'required|max:100',
+      //   );
+      //   $validator = Validator::make(Input::all(), $rules);
+      //
+      //   // process the errors
+      //   if ($validator->fails()) {
+      //       return Redirect::to('supplier/create')
+      //           ->withErrors($validator)
+      //           ->withInput(Input::all());
+      //   } else {
+      //       // store
+      //       $supplier = new Supplier();
+      //       $supplier->FirstName = Input::get('first_name');
+      //       $supplier->LastName = Input::get('last_name');
+      //       $supplier->Email = Input::get('email');
+      //       $supplier->Address = Input::get('address');
+      //       $supplier->PhoneNumber = Input::get('phone_number');
+      //       $supplier->Description = Input::get('description');
+      //       $supplier->save();
+      //
+      //       // redirect
+      //       Session::flash('message', 'Successfully created supplier!');
+      //       return Redirect::to('supplier');
+      //   }
     }
 
     /**

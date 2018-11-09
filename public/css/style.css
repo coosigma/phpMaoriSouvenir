@@ -1,4 +1,4 @@
-/* -------------------------------- 
+/* --------------------------------
 
 Primary style
 
@@ -19,7 +19,7 @@ body.overflow-hidden {
 }
 
 
-/* -------------------------------- 
+/* --------------------------------
 
 Modules - reusable parts of our design
 
@@ -46,14 +46,15 @@ Modules - reusable parts of our design
   white-space: nowrap;
 }
 
-/* -------------------------------- 
+/* --------------------------------
 
-xheader 
+xheader
 
 -------------------------------- */
 
 #cd-cart-trigger {
     right: 0;
+    z-index: 3;
 }
     #cd-cart-trigger a {
         position: fixed;
@@ -62,10 +63,12 @@ xheader
         width: 100px;
         height: 100px;
         background: #26292f url("../css/cd-cart.svg") no-repeat center center;
+        z-index: 3;
     }
 @media only screen and (min-width: 1200px) {
   #cd-cart-trigger {
     /* cart right margin on desktop */
+        z-index: 3;
     right: 0;
   }
     #cd-cart-trigger a {
@@ -77,6 +80,7 @@ xheader
         height: 100px;
         border-left: none;
         background-color: #26292f;
+        z-index: 3;
     }
 }
 
@@ -112,6 +116,7 @@ xheader
   -webkit-transition: right 0.3s;
   -moz-transition: right 0.3s;
   transition: right 0.3s;
+  z-index: 3;
 }
 #cd-cart.speed-in {
   right: 0;
@@ -215,9 +220,9 @@ xheader
     right: 2em;
   }
 }
-/* -------------------------------- 
+/* --------------------------------
 
-xgallery 
+xgallery
 
 -------------------------------- */
 main {
@@ -299,9 +304,9 @@ main {
         animation: cd-fade-in 0.3s;
     }
 
-/* -------------------------------- 
+/* --------------------------------
 
-xkeyframes 
+xkeyframes
 
 -------------------------------- */
 @-webkit-keyframes cd-fade-in {
