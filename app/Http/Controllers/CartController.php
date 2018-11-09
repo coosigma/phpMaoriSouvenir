@@ -15,7 +15,7 @@ class CartController extends Controller
     //
     public function addItem(Request $request){
         $id = Input::get('id');
-        $userId = request()->cookie('laravel_session');
+        $sessionId = request()->cookie('laravel_session');
         $souvenir = Souvenir::find($id);
         $id = $souvenir->id;
         $name = $souvenir->Name;
@@ -25,7 +25,7 @@ class CartController extends Controller
         $customAttributes = [
             'category' => $category,
         ];
-        $item = \Cart::session($userId)->add($id, $name, $price, $qty, $customAttributes);
+        $item = \Cart::session($sessionId)->add($id, $name, $price, $qty, $customAttributes);
         $response = array(
           'status' => 'success',
           'data' => $request->session()->all(),
@@ -35,9 +35,9 @@ class CartController extends Controller
     }
 
     private function getItems() {
-        $userId = request()->cookie('laravel_session');
+        $sessionId = request()->cookie('laravel_session');
         $items = [];
-        \Cart::session($userId)->getContent()->sortBy('id')->each(function($item) use (&$items)
+        \Cart::session($sessionId)->getContent()->sortBy('id')->each(function($item) use (&$items)
         {
             $items[] = $item;
         });
@@ -46,10 +46,10 @@ class CartController extends Controller
 
     public function getCart(Request $request) {
 
-        $userId = request()->cookie('laravel_session');
+        $sessionId = request()->cookie('laravel_session');
 
         $items = $this->getItems();
-        $total = \Cart::session($userId)->getSubTotal();
+        $total = \Cart::session($sessionId)->getSubTotal();
         $gst = $total * 0.15;
         $sub = $total * 0.85;
         return response(array(
@@ -63,28 +63,28 @@ class CartController extends Controller
     }
 
     public function reduceItem(Request $request, $id) {
-        $userId = request()->cookie('laravel_session');
-        $item = \Cart::session($userId)->get($id);
+        $sessionId = request()->cookie('laravel_session');
+        $item = \Cart::session($sessionId)->get($id);
         if ($item != null) {
           if ($item->quantity <= 1) {
-            \Cart::session($userId)->remove($id);
+            \Cart::session($sessionId)->remove($id);
           } else {
-            \Cart::session($userId)->update($id, array(
+            \Cart::session($sessionId)->update($id, array(
               'quantity' => -1,
             ));
           }
         }
         $items = $this->getItems();
-        $total = \Cart::session($userId)->getSubTotal();
+        $total = \Cart::session($sessionId)->getSubTotal();
         $gst = $total * 0.15;
         $sub = $total * 0.85;
         return $this->getCart($request);
     }
 
     public function emptyCart(Request $request) {
-        $userId = request()->cookie('laravel_session');
-        if(!\Cart::session($userId)->isEmpty()) {
-          \Cart::session($userId)->clear();
+        $sessionId = request()->cookie('laravel_session');
+        if(!\Cart::session($sessionId)->isEmpty()) {
+          \Cart::session($sessionId)->clear();
         }
         return $this->getCart($request);
     }

@@ -14,6 +14,11 @@ class Order extends Model
 
     public function user() : \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo('App\user', 'UserID', 'id');
+        return $this->belongsTo('App\User', 'UserID', 'id');
+    }
+
+    public function orderDetails() : \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\OrderDetail', 'OrderID', 'id');
     }
 }

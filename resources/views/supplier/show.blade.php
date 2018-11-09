@@ -27,16 +27,16 @@
         <h1>Showing {{ $supplier->FirstName." ".$supplier->LastName }}</h1>
 
         <div class="jumbotron text-center">
-            <h2>{{ $supplier->FirstName." ".$supplier->LastName }}</h2>
-            <p>
-                <strong>ID:</strong> {{ $supplier->id }}<br>
-                <strong>First Name:</strong> {{ $supplier->FirstName }}<br>
-                <strong>Last Name:</strong> {{ $supplier->LastName }}<br>
-                <strong>Phone Number:</strong> {{ $supplier->PhoneNumber }}<br>
-                <strong>Email:</strong> {{ $supplier->Email }}<br>
-                <strong>Address:</strong> {{ $supplier->Address }}<br>
-                <strong>Description:</strong> {{ $supplier->Description }}
-            </p>
+          <h2>{{ $supplier->FirstName." ".$supplier->LastName }}</h2>
+          <p>
+            <strong>ID:</strong> {{ $supplier->id }}<br>
+            <strong>First Name:</strong> {{ $supplier->FirstName }}<br>
+            <strong>Last Name:</strong> {{ $supplier->LastName }}<br>
+            <strong>Phone Number:</strong> {{ $supplier->PhoneNumber }}<br>
+            <strong>Email:</strong> {{ $supplier->Email }}<br>
+            <strong>Address:</strong> {{ $supplier->Address }}<br>
+            <strong>Description:</strong> {{ $supplier->Description }}
+          </p>
         </div>
         <div>
             <a href="{{action('SupplierController@index')}}">Back to List</a>

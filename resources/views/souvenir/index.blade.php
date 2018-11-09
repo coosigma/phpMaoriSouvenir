@@ -20,30 +20,35 @@
                         Category
                     </li>
                     <li><hr /></li>
+                    @php ($paras = Request::except('category'))
                     <li>
-                        {{--@Html.ActionLink("Maroi Gifts", "Index", new { category = "MaoriGift" })--}}
+                      @php ($paras['category'] = 'MaoriGift')
+                      <a href="{{action('SouvenirController@index', $paras)}}">Maroi Gifts</a>
                     </li>
                     <li>
-                        {{--@Html.ActionLink("Jewels", "Index", new { category = "Jewel" })--}}
+                      @php ($paras['category'] = 'Jewel')
+                      <a href="{{action('SouvenirController@index', $paras)}}">Jewels</a>
                     </li>
                     <li>
-                        {{--@Html.ActionLink("Crafts", "Index", new { category = "Craft" })--}}
+                      @php ($paras['category'] = 'Craft')
+                      <a href="{{action('SouvenirController@index', $paras)}}">Crafts</a>
                     </li>
                     <li>
-                        {{--@Html.ActionLink("Arts", "Index", new { category = "Art" })--}}
+                      @php ($paras['category'] = 'Art')
+                      <a href="{{action('SouvenirController@index', $paras)}}">Arts</a>
                     </li>
                     <li>
-                        {{--@Html.ActionLink("Foods", "Index", new { category = "Food" })--}}
+                      @php ($paras['category'] = 'Food')
+                      <a href="{{action('SouvenirController@index', $paras)}}">Foods</a>
                     </li>
                     <li class="active">
-                        {{--@Html.ActionLink("All Categories", "Index", new { category = "AllCategories" })--}}
+                      @php ($paras['category'] = 'AllCategories')
+                      <a href="{{action('SouvenirController@index', $paras)}}">All Categories</a>
                     </li>
                 </ul>
             </div>
             <div class="col-md-9">
-                <p>
-                    <a href="Create">Create New</a>
-                </p>
+              <h3><a href="{{route('souvenir@create')}}">Create New</a></h3>
                 @php ($paras = Request::except('search_str'))
                 <form action="{{ action('SouvenirController@index', $paras) }}" method="get">
                     <div class="form-actions no-color">
@@ -120,17 +125,16 @@
                                 {{$souvenir->Description}}
                             </td>
                             <td>
-                                {{$souvenir->CategoryID}}
+                                {{$souvenir->category->Name}}
                             </td>
                             <td>
-                                {{$souvenir->SupplierID}}
+                                {{$souvenir->supplier->FirstName." ".$souvenir->supplier->LastName}}
                             </td>
                             <td>
                                 <a href="Edit" >Edit</a> |
-                                <a href="Details" >Details</a> |
+                                <a href="{{route('souvenir@detail',[$souvenir->id])}}" >Details</a> |
                                 <a href="Delete" >Delete</a>|
                                 <a href="#" onclick='addItem({{$souvenir->id}})'>
-                                <!-- <a href='/cart/addItem/{{$souvenir->id}}' > -->
                                     Add To <span class="glyphicon glyphicon-shopping-cart"></span>
                                 </a>
                             </td>

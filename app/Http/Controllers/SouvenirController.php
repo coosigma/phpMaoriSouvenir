@@ -4,7 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Souvenir;
+use App\Category;
+use App\Supplier;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Session;
+
 
 class SouvenirController extends Controller
 {
@@ -22,26 +29,29 @@ class SouvenirController extends Controller
         $sort_mode =  $request->input("sort_mode");
         $lower_price = $request->input("lower_price");
         $upper_price = $request->input("upper_price");
+        $category = $request->input("category");
         if (!isset($lower_price))
             $lower_price = 0;
         if (!isset($upper_price))
             $upper_price =  PHP_INT_MAX;
+        if (!isset($category) || $category == 'AllCategories')
+            $category = "";
 
         switch ($sort_mode) {
             case "name":
-                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->orderby('Name')->paginate(5);
+                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->whereHas('category', function($q) use ($category){$q->where('Name', 'like', "%$category%");})->orderby('Name')->paginate(5);
                 break;
             case "name_desc":
-                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->orderby('Name', 'DESC')->paginate(5);
+                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->whereHas('category', function($q) use ($category){$q->where('Name', 'like', "%$category%");})->orderby('Name', 'DESC')->paginate(5);
                 break;
             case "price":
-                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->orderby('Price')->paginate(5);
+                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->whereHas('category', function($q) use ($category){$q->where('Name', 'like', "%$category%");})->orderby('Price')->paginate(5);
                 break;
             case "price_desc":
-                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->orderby('Price', 'DESC')->paginate(5);
+                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->whereHas('category', function($q) use ($category){$q->where('Name', 'like', "%$category%");})->orderby('Price', 'DESC')->paginate(5);
                 break;
             default:
-                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->orderby('id')->paginate(5);
+                $souvenirs = Souvenir::where('Name', 'like', "%$search_str%")->whereBetween('Price', [$lower_price, $upper_price])->whereHas('category', function($q) use ($category){$q->where('Name', 'like', "%$category%");})->orderby('id')->paginate(5);
         }
 
         return view('souvenir.index', compact('souvenirs', 'err_photo',
@@ -56,6 +66,9 @@ class SouvenirController extends Controller
     public function create()
     {
         //
+        $categories = Category::all();
+        $suppliers = Supplier::all();
+        return view('souvenir.create', compact('categories', 'suppliers'));
     }
 
     /**
@@ -66,7 +79,49 @@ class SouvenirController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validate
+        // read more on validation at http://laravel.com/docs/validation
+        $rules = array(
+            'name'       => 'required|max:20',
+            'description'      => 'required|max:50',
+            'price' => 'required|regex:/^\d*(\.\d{1,2})?$/|max:20',
+            'supplier' => 'required',
+            'category' => 'required',
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        // process the errors
+        if ($validator->fails()) {
+            return Redirect::to('souvenir/create')
+                ->withErrors($validator)
+                ->withInput(Input::all());
+        } else {
+            // store
+            $souvenir = new Souvenir;
+            $souvenir->Name = Input::get('name');
+            $souvenir->Description = Input::get('description');
+            $souvenir->Price = Input::get('price');
+            $souvenir->CategoryID = Input::get('category');
+            $souvenir->SupplierID = Input::get('supplier');
+            $file = Input::file('photo');
+            if ($file->isValid()) {
+                // 获取文件相关信息
+                $originalName = $file->getClientOriginalName(); // 文件原名
+                $ext = $file->getClientOriginalExtension();     // 扩展名
+                $realPath = $file->getRealPath();   //临时文件的绝对路径
+                $type = $file->getClientMimeType();     // image/jpeg
+                // 上传文件
+                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+                // 使用我们新建的uploads本地存储空间（目录）
+                $file->move('img', $filename);
+                $souvenir->PhotoPath = '/img/'.$filename;
+            }
+            $souvenir->save();
+
+            // redirect
+            Session::flash('message', 'Successfully created souvenir!');
+            return Redirect::to('souvenir');
+        }
     }
 
     /**
@@ -77,7 +132,11 @@ class SouvenirController extends Controller
      */
     public function show($id)
     {
-        //
+      // get the souvenir
+        $souvenir = Souvenir::find($id);
+        $err_photo = '/img/Error.svg';
+        // show the view and pass the souvenir to it
+        return view('souvenir.show', compact('souvenir', 'err_photo'));
     }
 
     /**

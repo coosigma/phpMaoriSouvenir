@@ -30,6 +30,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function orders() : \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany('App\Order', 'UserID');
     }
 }

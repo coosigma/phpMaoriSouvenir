@@ -13,6 +13,6 @@ class Supplier extends Model
 
     public function souvenirs() : \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany('App\Souvenir');
+        return $this->hasMany('App\Souvenir', 'SupplierID');
     }
 }

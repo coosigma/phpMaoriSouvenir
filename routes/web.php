@@ -23,7 +23,11 @@ Route::get('contact', 'HomeController@contact')->name('home@contact');
 
 Route::get('souvenir', 'SouvenirController@index')->name('souvenir@index');
 
+Route::get('souvenir/{id}/detail', 'SouvenirController@show')->name('souvenir@detail');
+
 Route::get('souvenir/create', 'SouvenirController@create')->name('souvenir@create');
+
+Route::post('souvenir/store', 'SouvenirController@store')->name('souvenir@store');
 
 Route::resource('category', 'CategoryController');
 

@@ -49,7 +49,7 @@ class SouvenirTableSeeder extends Seeder
             'Price'=>"1.00", 'CategoryID'=>"4", 'SupplierID'=>"4"]);
         $sou->save();
         $sou =  new \App\Souvenir(['Name'=>"Kai", 'Description'=>"Sea food",
-            'PhotoPath'=>"/img/SouvenirImages/Boat.jpg",
+            'PhotoPath'=>"/img/SouvenirImages/Kai.jpg",
             'Price'=>"30.00", 'CategoryID'=>"5", 'SupplierID'=>"5"]);
         $sou->save();
     }

@@ -20,4 +20,9 @@ class Souvenir extends Model
     {
         return $this->belongsTo('App\Supplier', 'SupplierID', 'id');
     }
+
+    public function orderDetails() : \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany('App\OrderDetail', 'SouvenirID');
+    }
 }
