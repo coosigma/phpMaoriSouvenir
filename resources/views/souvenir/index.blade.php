@@ -123,7 +123,7 @@
                     @foreach($souvenirs as $souvenir)
                         <tr>
                             <td>
-                                <img style="width: 250px; height: auto;" src="{{$souvenir->PhotoPath}}" alt="Souvenir Image" onerror="this.onerror = null; this.src = '{{$err_photo}}'">
+                                <img style="width: 250px; height: auto;" src="{{url($souvenir->PhotoPath)}}" alt="Souvenir Image" onerror="this.onerror = null; this.src = '{{$err_photo}}'">
                             </td>
                             <td>
                                 {{$souvenir->id}}

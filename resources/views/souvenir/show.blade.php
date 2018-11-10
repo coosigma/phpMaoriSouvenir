@@ -15,7 +15,7 @@
         <div class="jumbotron text-center">
             <h2>{{ $souvenir->Name }}</h2>
             <div>
-              <img style="width: auto; height: auto;" src="{{$souvenir->PhotoPath}}" alt="Souvenir Image" onerror="this.onerror = null; this.src = '{{$err_photo}}'">
+              <img style="width: auto; height: auto;" src="{{url($souvenir->PhotoPath)}}" alt="Souvenir Image" onerror="this.onerror = null; this.src = '{{$err_photo}}'">
             </div>
             <p>
                 <strong>ID:</strong> {{ $souvenir->id }}<br>

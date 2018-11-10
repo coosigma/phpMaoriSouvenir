@@ -13,9 +13,10 @@ $(document).ready(function(){
 
 // For order
 function changeOrderStatus(id){
+  var url = $('meta[name="my_url"]').attr('content');
     $.ajax({
     type: 'post',
-    url: '/order/changeOrderStatus',
+    url: url+ '/order/changeOrderStatus',
     data: {"id" : id},
     success: function (res){
       // console.log("sucess");
@@ -28,10 +29,23 @@ function changeOrderStatus(id){
 }
 
 // For user
+function getCart() {
+  var url = $('meta[name="my_url"]').attr('content');
+  $.ajax({
+    type: 'get',
+    url: url+'/cart/getCart',
+    success: function (res){
+      refreshCart(res);
+    },
+  });
+}
+
+
 function changeUserEnabled(id){
+    var url = $('meta[name="my_url"]').attr('content');
     $.ajax({
     type: 'post',
-    url: '/member/changeUserEnabled',
+    url: url+ '/member/changeUserEnabled',
     data: {"id" : id},
     success: function (res){
       // console.log("sucess");
@@ -46,9 +60,10 @@ function changeUserEnabled(id){
 
 // For shopping cart
 function addItem(id) {
+    var url = $('meta[name="my_url"]').attr('content');
     $.ajax({
     type: 'post',
-    url: '/cart/addItem',
+    url: url+ '/cart/addItem',
     data: {"id" : id},
     success: function (res){
       // console.log("sucess");
@@ -60,24 +75,27 @@ function addItem(id) {
 
 // Write your JavaScript code.
 function reduceOne(id) {
+    var url = $('meta[name="my_url"]').attr('content');
 		$.ajax({
     type: 'get',
-    url: '/cart/reduceItem/'+id,
+    url: url+ '/cart/reduceItem/'+id,
     success: function (res){
 			refreshCart(res);
 	  },
     });
 }
 function emptyCart() {
+    var url = $('meta[name="my_url"]').attr('content');
 		$.ajax({
     type: 'get',
-    url: '/cart/emptyCart',
+    url: url+ '/cart/emptyCart',
     success: function (res){
 			refreshCart(res);
 	  },
     });
 }
 function refreshCart(res) {
+  var url = $('meta[name="my_url"]').attr('content');
 				var new_string = "";
 				for (i = 0, len = res.data.length; i < len; i++) {
 					var item = res.data[i];
@@ -86,10 +104,10 @@ function refreshCart(res) {
 	        new_string += '<hr /><div class="row">';
 	        // item's id
 	        new_string += '<div class="col-sm-2">' +
-	            '<a href="souvenir/' + item.id + '">' + item.id + '</a></div>';
+	            '<a href="'+url+'/souvenir/' + item.id + '">' + item.id + '</a></div>';
 	        // item's name
 	        new_string += '<div class="col-sm-3">' +
-	            '<a href="souvenir/' + item.id + '">' + item.name + '</a></div>';
+	            '<a href="'+url+'/souvenir/' + item.id + '">' + item.name + '</a></div>';
 				  // category's name
 	        new_string += '<div class="col-sm-3">' + item.attributes.category + '</div>';
 	        // item's quantity

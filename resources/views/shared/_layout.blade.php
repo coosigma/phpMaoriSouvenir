@@ -13,6 +13,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="my_url" content="{{url('/')}}">
     <title>@yield('title')- QualitySouvenir</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -23,6 +24,7 @@
     <link rel="bookmark" href="{{url('img/favicon.ico')}}" type="image/x-icon" />
 </head>
 <body>
+
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -33,7 +35,7 @@
                 <span class="icon-bar"></span>
             </button>
             <a href='{{ route('home@index') }}' class="navbar-brand">
-                <img id="icon" src="{{asset('img/QualitySouvenir.png')}}" />
+                <img id="icon" src="{{url('img/QualitySouvenir.png')}}" />
             </a>
         </div>
         <div class="navbar-collapse collapse">
@@ -114,7 +116,7 @@
                             <li><span class="glyphicon glyphicon glyphicon-globe"></span> 183 Bld, 139 Carrington Rd, Mt Albert, Auckland, NZ</li>
                             <li><span class="glyphicon glyphicon-phone-alt"></span> 0211234567</li>
                             <li><span class="glyphicon glyphicon-envelope"></span> support@maorisouvenir.com</li>
-                            <li>&copy; All rights reserved by Bing Liang <img id="icon" src="{{asset('img/HomeIcon-Black.png')}}" /></li>
+                            <li>&copy; All rights reserved by Bing Liang <img id="icon" src="{{url('img/HomeIcon-Black.png')}}" /></li>
                         </ul>
                     </div>
                 </div>

@@ -95,10 +95,9 @@ class CartController extends Controller
             return redirect(url('placeOrder'));
         }
         else {
-            \Session::put('redirect_url', \Request::getRequestUri());
+            \Session::put('redirect_url', $request->fullUrl());
             \Session::put('original_cart_id', request()->cookie('laravel_session'));
             return redirect(url('login'));
         }
     }
-
 }

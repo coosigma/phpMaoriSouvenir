@@ -24,16 +24,6 @@ jQuery(document).ready(function($){
 		getCart();
 	});
 
-	function getCart() {
-		$.ajax({
-    type: 'get',
-    url: '/cart/getCart',
-    success: function (res){
-			refreshCart(res);
-	  },
-    });
-	}
-
 	//close lateral cart or lateral menu
 	$shadow_layer.on('click', function(){
 		$shadow_layer.removeClass('is-visible');
