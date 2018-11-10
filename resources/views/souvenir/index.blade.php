@@ -59,7 +59,9 @@
                 </ul>
             </div>
             <div class="col-md-9">
-              <h3><a href="{{route('souvenir@create')}}">Create New</a></h3>
+              <?php if (Auth::check() && Auth::user()->type == 'admin'): ?>
+                <h3><a href="{{route('souvenir@create')}}">Create New</a></h3>
+              <?php endif; ?>
                 @php ($paras = Request::except('search_str'))
                 <form action="{{ action('SouvenirController@index', $paras) }}" method="get">
                     <div class="form-actions no-color">
@@ -142,12 +144,20 @@
                                 {{$souvenir->supplier->FirstName." ".$souvenir->supplier->LastName}}
                             </td>
                             <td>
-                                <a href="{{route('souvenir@edit',[$souvenir->id])}}" >Edit</a> |
-                                <a href="{{route('souvenir@detail',[$souvenir->id])}}" >Details</a> |
-                                <a href="{{route('souvenir@delete',[$souvenir->id])}}" >Delete</a>|
+                              <a href="{{route('souvenir@detail',[$souvenir->id])}}" >Details</a>
+
+                              <?php if (Auth::check() && Auth::user()->type == 'admin'): ?>
+                                |<a href="{{route('souvenir@edit',[$souvenir->id])}}" >Edit</a>
+                                |<a href="{{route('souvenir@delete',[$souvenir->id])}}" >Delete</a>
+                              <?php endif; ?>
+
+                                <?php if (!Auth::check() || Auth::user()->type != 'admin'): ?>
+                                |
                                 <a href="#" onclick='addItem({{$souvenir->id}})'>
                                     Add To <span class="glyphicon glyphicon-shopping-cart"></span>
                                 </a>
+                              <?php endif; ?>
+
                             </td>
                         </tr>
                     @endforeach

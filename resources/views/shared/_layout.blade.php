@@ -39,38 +39,30 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav" style="font-size: 18px">
                 <li><a  href='{{ route('home@index') }}'><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Home</a></li>
-               {{-- @if (User.IsInRole("Admin"))
-                    {
-                    <li><a  href='{{ route('member@index') }}'><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Members</a></li>
-                    <li><a  href='{{ route('order@index') }}'><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Orders</a></li>
-                    <li><a  href='{{ route('souvenir@index') }}'><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Souvenirs</a></li>
-                    <li><a  href='{{ route('category@index') }}'><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Categories</a></li>
-                    <li><a  href='{{ route('supplier@index') }}'><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Suppliers</a></li>
-                    }
-                    else if (User.IsInRole("Member"))
-                    {
-                    <li><a  href='{{ route('memberSouvenir@index') }}'><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Souvenirs</a></li>
-                    <li><a  href='{{ route('myOrder@index') }}'><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> My Orders</a></li>
-                    }
-                    else
-                    {
-                    <li><a  href='{{ route('memberSouvenir@index') }}'><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Souvenirs</a></li>
-                    }--}}
-                    <li><a  href='{{ route('souvenir@index') }}'><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Souvenirs</a></li>
-                    <li><a  href='category'><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Categories</a></li>
-                    <li><a  href='supplier'><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Suppliers</a></li>
-                    <li><a  href='{{ route('home@about') }}'><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
-                  <li><a  href='{{ route('home@contact') }}'><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> Contact</a></li>
-            </ul>
+
+                <?php if (Auth::check() && Auth::user()->type == 'admin'): ?>
+                  <li><a  href='{{ action('MemberController@index') }}'><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Members</a></li>
+                  <li><a  href='{{ action('CategoryController@index') }}'><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Categories</a></li>
+                  <li><a  href='{{ action('SupplierController@index') }}'><span class="glyphicon glyphicon-oil" aria-hidden="true"></span> Suppliers</a></li>
+                <?php endif; ?>
+
+                <?php if (Auth::check()): ?>
+                  <li><a  href='{{ action('OrderController@index') }}'><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Orders</a></li>
+                <?php endif; ?>
+
+                <li><a  href='{{ route('souvenir@index') }}'><span class="glyphicon glyphicon-gift" aria-hidden="true"></span> Souvenirs</a></li>
+                <li><a  href='{{ route('home@about') }}'><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
+                <li><a  href='{{ route('home@contact') }}'><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span> Contact</a></li>
+              </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 @guest()
-                        <li><a href="register"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Register</a></li>
-                        <li><a href="login"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Log in</a></li>
+                        <li><a href="{{url('register')}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Register</a></li>
+                        <li><a href="{{url('login')}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Log in</a></li>
                 @endguest
                 @auth()
-                        <li><a href="account"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> {{Auth::user()->email}}</a></li>
-                        <li><a href="logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log out</a></li>
+                        <li><a href="{{url('account')}}"><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> {{Auth::user()->email}}</a></li>
+                        <li><a href="{{url('logout')}}"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Log out</a></li>
                 @endauth
             </ul>
 
@@ -83,9 +75,11 @@
 <div class="container body-content">
     @yield('content')
 
+    <?php if (!Auth::check() || Auth::user()->type != 'admin'): ?>
     <div id="cd-cart-trigger"><a class="cd-img-replace" href="/#0">Cart</a></div>
     <div id="cd-shadow-layer"></div>
     @include('shared.ShoppingCart')
+    <?php endif; ?>
 
     <hr />
     <div class="container">

@@ -21,7 +21,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        // get all the orders
+        $orders = Order::all();
+        // load the view and pass the nerds
+        return view('order.index', compact('orders'));
     }
 
     /**
@@ -42,7 +45,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-      // validate
+        // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
             'first_name'       => 'required|max:50',
@@ -79,17 +82,21 @@ class OrderController extends Controller
             $order->save();
             // order details
             $sessionId = request()->cookie('laravel_session');
+            if (\Session::has('original_cart_id')) {
+              $sessionId = \Session::get('original_cart_id');
+              \Session::forget('original_cart_id');
+            }
             \Cart::session($sessionId)->getContent()->sortBy('id')->each(function($item) use (&$items, &$order)
             {
-              $od = new OrderDetail();
-              $od->OrderID = $order->id;
-              $od->SouvenirID = $item->id;
-              $od->UnitPrice = $item->price;
-              $od->Quantity = $item->quantity;
-              $od->save();
+                $od = new OrderDetail();
+                $od->OrderID = $order->id;
+                $od->SouvenirID = $item->id;
+                $od->UnitPrice = $item->price;
+                $od->Quantity = $item->quantity;
+                $od->save();
             });
             if(!\Cart::session($sessionId)->isEmpty()) {
-              \Cart::session($sessionId)->clear();
+                \Cart::session($sessionId)->clear();
             }
             // redirect
             Session::flash('message', 'Successfully placed the order!');
@@ -105,7 +112,32 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        // get the order
+        $order = Order::find($id);
+        // show the view and pass the order to it
+        return view('order.show')->with('order', $order);
+    }
+
+    public function changeStatus(Request $req) {
+      $id = Input::get('id');
+      $order = Order::find($id);
+      $updated = [];
+      if ($order->Status == 0) {
+        $order->Status = 1;
+        $updated['status'] = 'Shipped';
+        $updated['button'] = 'Wait';
+      } else {
+        $order->Status = 0;
+        $updated['status'] = 'Waiting';
+        $updated['button'] = 'Ship';
+      }
+      $order->save();
+      $response = array(
+        'status' => 'success',
+        'data' => $updated,
+        'message' => "status changed."
+      );
+      return response()->json($response);
     }
 
     /**
@@ -139,6 +171,19 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+      // delete
+        $order = Order::find($id);
+        try {
+            $order->delete();
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $message="";
+            if ($ex->getCode() == 23000)
+                $message = "The Order being deleted has order details in it. Delete those details before trying again.";
+            return Redirect::to('order')
+                ->withErrors($message);
+        }
+        // redirect
+        Session::flash('message', 'Successfully deleted the order!');
+        return Redirect::to('order');
     }
 }

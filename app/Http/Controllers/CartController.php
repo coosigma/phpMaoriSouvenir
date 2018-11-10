@@ -27,9 +27,9 @@ class CartController extends Controller
         ];
         $item = \Cart::session($sessionId)->add($id, $name, $price, $qty, $customAttributes);
         $response = array(
-          'status' => 'success',
-          'data' => $request->session()->all(),
-          'message' => "item added."
+            'status' => 'success',
+            'data' => $request->session()->all(),
+            'message' => "item added."
         );
         return response()->json($response);
     }
@@ -66,13 +66,13 @@ class CartController extends Controller
         $sessionId = request()->cookie('laravel_session');
         $item = \Cart::session($sessionId)->get($id);
         if ($item != null) {
-          if ($item->quantity <= 1) {
-            \Cart::session($sessionId)->remove($id);
-          } else {
-            \Cart::session($sessionId)->update($id, array(
-              'quantity' => -1,
-            ));
-          }
+            if ($item->quantity <= 1) {
+                \Cart::session($sessionId)->remove($id);
+            } else {
+                \Cart::session($sessionId)->update($id, array(
+                    'quantity' => -1,
+                ));
+            }
         }
         $items = $this->getItems();
         $total = \Cart::session($sessionId)->getSubTotal();
@@ -84,20 +84,21 @@ class CartController extends Controller
     public function emptyCart(Request $request) {
         $sessionId = request()->cookie('laravel_session');
         if(!\Cart::session($sessionId)->isEmpty()) {
-          \Cart::session($sessionId)->clear();
+            \Cart::session($sessionId)->clear();
         }
         return $this->getCart($request);
     }
 
     public function checkOut(Request $request) {
-      $user = $request->user();
-      if ($user != null) {
-        return view('order.placeOrder');
-      }
-      else {
-        \Session::put('redirect_url', \Request::getRequestUri());
-        return redirect(url('login'));
-      }
+        $user = $request->user();
+        if ($user != null) {
+            return redirect(url('placeOrder'));
+        }
+        else {
+            \Session::put('redirect_url', \Request::getRequestUri());
+            \Session::put('original_cart_id', request()->cookie('laravel_session'));
+            return redirect(url('login'));
+        }
     }
 
 }

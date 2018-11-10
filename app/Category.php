@@ -8,7 +8,7 @@ class Category extends Model
 {
     //
     protected $fillable = [
-      'Name', 'Description'
+        'Name', 'Description'
     ];
 
     public function souvenirs() : \Illuminate\Database\Eloquent\Relations\HasMany

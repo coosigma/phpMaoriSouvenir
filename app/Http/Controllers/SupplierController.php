@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Supplier;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use Session;
 
@@ -18,7 +18,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        // get all the nerds
+        // get all the suppliers
         $suppliers = Supplier::all();
         // load the view and pass the nerds
         return view('supplier.index', compact('suppliers'));

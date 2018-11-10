@@ -27,8 +27,7 @@
                         <div class="carousel-caption" role="option">
                             <p style="color:black;position:relative;left:350px;top:20px">
                                 Woodcarving boat<br />
-                                {{--@*<a class="btn btn-default" style="position:relative;left:50px;top:20px" asp-controller="Souvenirs" asp-action="Details" asp-route-id="23">Buy Now</a>*@--}}
-                                {{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="8" class="btn btn-default">Buy Now</a>--}}
+                                <a class="btn btn-default" href="{{action('SouvenirController@show', ['8'])}}" >Buy Now</a>
                             </p>
                         </div>
                     </div>
@@ -37,7 +36,7 @@
                         <div class="carousel-caption" role="option">
                             <p style="color:black;position:relative;left:300px">
                                 Doll Set<br />
-                                {{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="2" class="btn btn-default">Buy Now</a>--}}
+                                <a class="btn btn-default" href="{{action('SouvenirController@show', ['2'])}}" >Buy Now</a>
                             </p>
                         </div>
                     </div>
@@ -46,7 +45,7 @@
                         <div class="carousel-caption" role="option">
                             <p style="color:black;position:relative;left:200px;top: -30px">
                                 Jade Necklace<br />
-                                {{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="3" class="btn btn-default">Buy Now</a>--}}
+                                <a class="btn btn-default" href="{{action('SouvenirController@show', ['3'])}}" >Buy Now</a>
                             </p>
                         </div>
                     </div>
@@ -55,7 +54,7 @@
                         <div class="carousel-caption" role="option">
                             <p style="color:black;position:relative;left:130px">
                                 Postcard
-                                {{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="9" class="btn btn-default">Buy Now</a>--}}
+                                <a class="btn btn-default" href="{{action('SouvenirController@show', ['9'])}}" >Buy Now</a>
                             </p>
                         </div>
                     </div>
@@ -76,19 +75,19 @@
     <div class="row-fluid">
         <div class="col-md-3">
             <img src="{{url('img/Jade1.jpg')}}" /><br />
-            Jade 1<br />$100<br />{{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="4">view</a>--}}
+            Jade 1<br />$100<br /><a href="{{action('SouvenirController@show', ['4'])}}">view</a>
         </div>
         <div class="col-md-3">
             <img src="{{url('img/Jade2.jpg')}}" /><br />
-            Jade 2<br />$200<br />{{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="5">view</a>--}}
+            Jade 2<br />$200<br /><a href="{{action('SouvenirController@show', ['5'])}}">view</a>
         </div>
         <div class="col-md-3">
             <img src="{{url('img/Jade3.jpg')}}" /><br />
-            Jade 3<br />$300<br />{{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="6">view</a>--}}
+            Jade 3<br />$300<br /><a href="{{action('SouvenirController@show', ['6'])}}">view</a>
         </div>
         <div class="col-md-3">
             <img src="{{url('img/Jade4.jpg')}}" /><br />
-            Jade 4<br />$400<br />{{--<a asp-controller="@ViewData["UserSouvenirPage"]" asp-action="Details" asp-route-id="7">view</a>--}}
+            Jade 4<br />$400<br /><a href="{{action('SouvenirController@show', ['7'])}}">view</a>
         </div>
     </div>
     <br />

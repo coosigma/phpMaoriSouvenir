@@ -13,8 +13,8 @@ class SouvenirTableSeeder extends Seeder
     {
         //
         $sou =  new \App\Souvenir(['Name'=>"Survival Kit", 'Description'=>"Survival Kit",
-        'PhotoPath'=>"/img/SouvenirImages/travellers_survival_kit.jpg",
-        'Price'=>"24.95", 'CategoryID'=>"1", 'SupplierID'=>"1"]);
+            'PhotoPath'=>"/img/SouvenirImages/travellers_survival_kit.jpg",
+            'Price'=>"24.95", 'CategoryID'=>"1", 'SupplierID'=>"1"]);
         $sou->save();
         $sou =  new \App\Souvenir(['Name'=>"Dolls Kit", 'Description'=>"Dolls Kit",
             'PhotoPath'=>"/img/SouvenirImages/Dolls.jpeg",

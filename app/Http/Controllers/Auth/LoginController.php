@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Auth;
-use Session;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
+use Session;
 
 class LoginController extends Controller
 {
@@ -37,21 +40,44 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-      $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request) {
+      $this->validate($request,['email' => 'required|email','password' => 'required']);
+
+      if (Auth::guard()->attempt($this->getCredentials($request))){
+        //authentication passed
+        $rd = $this->redirectTo;
+        if (\Session::has('redirect_url')) {
+          $rd = \Session::get('redirect_url');
+          \Session::forget('redirect_url');
+        }
+        return redirect($rd);
+      }
+      $errors = [
+        "Your email and password are not verified or Your account is disabled by Administrator.",
+      ];
+      return redirect()->back()->withErrors($errors);
+    }
+
+    protected function getCredentials(Request $request)
+    {
+      $ret = [
+        'email' => $request->input('email'),
+        'password' => $request->input('password'),
+        'Enabled' => 0,
+      ];
+      return $ret;
     }
 
     protected function redirectTo()
     {
-      $rd = $this->redirectTo;
-      if (\Session::has('redirect_url')) {
-        $rd = \Session::get('redirect_url');
-        \Session::forget('redirect_url');
-      }
-      return $rd;
-    }
-
-    public function logout(Request $request) {
-        Auth::logout();
-        return redirect('/');
+        $rd = $this->redirectTo;
+        if (\Session::has('redirect_url')) {
+            $rd = \Session::get('redirect_url');
+            \Session::forget('redirect_url');
+        }
+        return $rd;
     }
 }

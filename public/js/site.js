@@ -11,6 +11,39 @@ $(document).ready(function(){
   });
 })
 
+// For order
+function changeOrderStatus(id){
+    $.ajax({
+    type: 'post',
+    url: '/order/changeOrderStatus',
+    data: {"id" : id},
+    success: function (res){
+      // console.log("sucess");
+      console.log(res.data);
+      // console.log(res.data);
+      $("#order_status_"+id).html(res.data.status);
+      $("#change_button_"+id).html(res.data.button);
+    },
+  });
+}
+
+// For user
+function changeUserEnabled(id){
+    $.ajax({
+    type: 'post',
+    url: '/member/changeUserEnabled',
+    data: {"id" : id},
+    success: function (res){
+      // console.log("sucess");
+      console.log(res.data);
+      // console.log(res.data);
+      $("#enabled_status_"+id).html(res.data.status);
+      $("#enabled_button_"+id).html(res.data.button);
+    },
+  });
+}
+
+
 // For shopping cart
 function addItem(id) {
     $.ajax({

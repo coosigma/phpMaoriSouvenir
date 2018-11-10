@@ -134,7 +134,7 @@ class SouvenirController extends Controller
      */
     public function show($id)
     {
-      // get the souvenir
+        // get the souvenir
         $souvenir = Souvenir::find($id);
         $err_photo = '/img/Error.svg';
         // show the view and pass the souvenir to it
@@ -149,7 +149,7 @@ class SouvenirController extends Controller
      */
     public function edit($id)
     {
-      // get the supplier
+        // get the supplier
         $souvenir = souvenir::find($id);
         $categories = Category::all();
         $suppliers = Supplier::all();
@@ -218,7 +218,7 @@ class SouvenirController extends Controller
      */
     public function destroy($id)
     {
-      // delete
+        // delete
         $souvenir = Souvenir::find($id);
         try {
             $souvenir->delete();
