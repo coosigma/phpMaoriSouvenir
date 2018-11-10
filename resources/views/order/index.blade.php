@@ -57,6 +57,7 @@
                     <td>{{ $value->TotalCost }}</td>
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>
+                      <?php if (Auth::check() && Auth::user()->type == 'admin'): ?>
                         <a id="{{'change_button_'.$value->id}}" class="btn btn-small btn-info" href="#" onclick='changeOrderStatus({{$value->id}})'>
                             @if($value->Status == 0)
                                 Ship
@@ -64,8 +65,12 @@
                                 Wait
                             @endif
                         </a>
+                        <?php endif; ?>
+
                         <a class="btn btn-small btn-success" href="{{ URL::to('order/' . $value->id) }}">Details</a>
-                        <a class="btn btn-small btn-danger" href="{{ URL::to('order/' . $value->id . '/delete') }}">Delete</a>
+                        <?php if (Auth::check() && Auth::user()->type == 'admin'): ?>
+                          <a class="btn btn-small btn-danger" href="{{ URL::to('order/' . $value->id . '/delete') }}">Delete</a>
+                        <?php endif; ?>
                     </td>
                 </tr>
             @endforeach

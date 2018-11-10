@@ -18,6 +18,11 @@
 
 <hr />
     <dl class="dl-horizontal">
+
+      <?php if (Auth::check() && Auth::user()->type == 'admin'): ?>
+        <dt> User ID</dt>
+        <dd> {{$order->UserID}}</dd>
+      <?php endif; ?>
         <dt>FirstName</dt>
         <dd>{{$order->FirstName}}</dd>
 

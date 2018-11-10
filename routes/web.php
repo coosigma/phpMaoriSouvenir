@@ -66,8 +66,8 @@ Route::get('/cart/emptyCart', 'CartController@emptyCart');
 // Order
 Route::get('/cart/checkOut', 'CartController@checkOut');
 Route::resource('order', 'OrderController')->middleware('verified');
-Route::post('/order/changeOrderStatus', 'OrderController@changeStatus')->middleware('verified');
-Route::any('/order/{id}/delete', 'OrderController@destroy')->middleware('verified');
+Route::post('/order/changeOrderStatus', 'OrderController@changeStatus')->middleware('is_admin');
+Route::any('/order/{id}/delete', 'OrderController@destroy')->middleware('is_admin');
 Route::view('placeOrder', 'order.placeOrder')->middleware('verified');
 // Member
 Route::resource('member', 'MemberController')->middleware('is_admin');

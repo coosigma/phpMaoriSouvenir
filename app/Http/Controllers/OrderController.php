@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 use DateTime;
 use Session;
 
@@ -21,10 +22,16 @@ class OrderController extends Controller
      */
     public function index()
     {
-        // get all the orders
+      $user = Auth::user();
+      // get all the orders
+      if ($user->type == 'admin') {
         $orders = Order::all();
-        // load the view and pass the nerds
-        return view('order.index', compact('orders'));
+      } else {
+        $orders = Order::where('UserID', $user->id)->get();
+      }
+
+      // load the view and pass the nerds
+      return view('order.index', compact('orders'));
     }
 
     /**
