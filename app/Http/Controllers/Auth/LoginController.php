@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Session;
+use DateTime;
 
 class LoginController extends Controller
 {
@@ -53,6 +54,10 @@ class LoginController extends Controller
           $rd = \Session::get('redirect_url');
           \Session::forget('redirect_url');
         }
+        $dt = new DateTime();
+        $user = $request->user();
+        $info = join("   ", [$user->id, $user->email, $request->ip(), $dt->format('Y-m-d H:i:s')]);
+        \Log::info($info);
         return redirect($rd);
       }
       $errors = [
