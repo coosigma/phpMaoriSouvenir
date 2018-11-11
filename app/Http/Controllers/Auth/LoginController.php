@@ -57,7 +57,7 @@ class LoginController extends Controller
         $dt = new DateTime();
         $user = $request->user();
         $info = join("   ", [$user->id, $user->email, $request->ip(), $dt->format('Y-m-d H:i:s')]);
-        \Log::info($info);
+        \Log::info($info+"\n");
         return redirect($rd);
       }
       $errors = [
